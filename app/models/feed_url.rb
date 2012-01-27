@@ -95,21 +95,24 @@ class FeedUrl < ActiveRecord::Base
     (atom/:entry).each do |item|
       link_raw = item.%('feedburner:origLink') || item.%('link')
 
-      if !link_raw.blank?
-        link = (link_raw).inner_html
-      else
-        link = (item/:link).attr('href')
-      end
-
+     # if !link_raw.blank?
+     #   link = (link_raw).inner_html
+     # else
+        link = (item/:link).attr('href').value
+     # end
       if (Feed.find_by_link(link)).blank?
         atom_feed = Feed.new
         atom_feed.feed_url = self
         atom_feed.site_link = site_link
         atom_feed.site_title = site_title
-        atom_feed.title = (item/:title).inner_html
+        atom_feed.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
         atom_feed.link = link
         atom_feed.author = (item/:author/:name).inner_html
-        atom_feed.content = (item/:content).inner_html
+        begin
+          atom_feed.content = (item/:content).children[0].text
+        rescue
+          atom_feed.content = (item/:summery).inner_html
+        end
         atom_feed.published = (item/:published).inner_html
 
         if atom_feed.content.blank?
@@ -160,12 +163,12 @@ class FeedUrl < ActiveRecord::Base
     # for image srcs like <img src="/assets/2008/4/23/rails3.jpg_1208810865" />"
     # adding host so that they become valid
     # "<img src="http://www.google.com/assets/2008/4/23/rails3.jpg_1208810865" />"
-    if link
-      host = URI.parse(link).host
-      if host != "feeds.feedburner.com"
-        string.gsub!("src=\"/", "src=\"http://"+host+"/")
-      end
-    end
+#    if link
+#        host = URI.parse(link).host
+#        if host != "feeds.feedburner.com"
+#          string.gsub!("src=\"/", "src=\"http://"+host+"/")
+#        end
+#    end
     return string
   end
 
