@@ -5,11 +5,7 @@ class PagesController < ApplicationController
   # index
   #
   def index
-    @feeds = Feed.paginate(:all, 
-                           :per_page => 15, 
-                           :page => params[:page], 
-                           :order => "published DESC")
-    
+    @feeds = Feed.paginate(:per_page => 15, :page => params[:page], :order => "published DESC")
     expires_in 5.minutes, :private => false, :public => true
   end
   
@@ -27,8 +23,7 @@ class PagesController < ApplicationController
   def search
     query = params[:query]
     query = (query && query.strip) || ""
-    @feeds = Feed.paginate(:all, 
-                           :conditions => ["content like ? or title like ?", "%"+query+"%", "%"+query+"%"], 
+    @feeds = Feed.paginate(:conditions => ["content like ? or title like ?", "%"+query+"%", "%"+query+"%"], 
                            :per_page => 15, 
                            :page => params[:page], 
                            :order => "published DESC")

@@ -3,8 +3,12 @@
 source :rubygems
 
 
-gem "rails", "3.1.3"
-gem "rails_legacy_mapper"
+gem "rails", "3.2.0"
+# gem "rails_legacy_mapper"
+gem "sass-rails", "~> 3.2.3"
+gem "coffee-rails", "~> 3.2.1"
+gem "uglifier", ">= 1.0.3"
+
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
@@ -19,10 +23,9 @@ gem "sqlite3-ruby", :require => "sqlite3"
 # gem "sqlite3-ruby", :require => "sqlite3"
 # gem "aws-s3", :require => "aws/s3"
 
-gem 'will_paginate', '3.0.pre'
+gem 'will_paginate'
 gem 'mysql2'
 gem 'nokogiri'
-gem "uglifier"
 require 'open-uri'
 require 'uri'
 require 'digest/md5'
