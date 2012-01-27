@@ -26,3 +26,6 @@ role :db,  application, :primary => true
 
 #after "deploy", "reload_nginx"
 after "deploy", "deploy:cleanup"
+
+        require './config/boot'
+        require 'airbrake/capistrano'
