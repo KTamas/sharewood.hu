@@ -27,7 +27,8 @@ class FeedUrlsController < ApplicationController
   # GET /feed_urls/new.xml
   def new
     @feed_url = FeedUrl.new
-
+    puts "hello, world!"
+ 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @feed_url }
