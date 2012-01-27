@@ -1,3 +1,4 @@
+# encoding: utf-8
 <a name="top"></a>
    <div id="wrap">
      <div id="header"><h1><a href="http://planetrubyonrails.net">PLANET RUBY ON RAILS</a> <a href="http://feeds.feedburner.com/PlanetRails"><img src="/images/feed-icon-28x28.png" border="0"></a></h1>
@@ -5,8 +6,8 @@
      <div id="top_wrap">
        <div class="left_top" id="left_top"><div class="left_top_content">
            <ul> <% @link_array = []%>
-             <% for feed_item in @feeds%> <% @link_array << MD5::new(feed_item.link )%>
-               <li><span class="bullet_icon">»</span>&nbsp;<a title="<%= distance_of_time_in_words(Time.now, feed_item.published)%> ago at <%= feed_item.site_title %>" href="#<%= MD5::new(feed_item.link )%>"><%= raw(feed_item.title) %></a> <!-- <span class="sub grey"><%= distance_of_time_in_words(Time.now, feed_item.published)%> ago</span></li> -->
+             <% for feed_item in @feeds%> <% @link_array << Digest::MD5.hexdigest(feed_item.link )%>
+               <li><span class="bullet_icon">»</span>&nbsp;<a title="<%= distance_of_time_in_words(Time.now, feed_item.published)%> ago at <%= feed_item.site_title %>" href="#<%= Digest::MD5.hexdigest(feed_item.link )%>"><%= raw(feed_item.title) %></a> <!-- <span class="sub grey"><%= distance_of_time_in_words(Time.now, feed_item.published)%> ago</span></li> -->
              <%end%>
            </ul>
          </div>
@@ -47,7 +48,7 @@
       </div>
        <% if !@feeds.blank? %>
          <% for feed_item in @feeds%>
-           <div><a name="<%= MD5.new(feed_item.link )%>"></a></div>
+           <div><a name="<%= Digest::MD5.hexdigest(feed_item.link )%>"></a></div>
            <div class="post <% if feed_item.feed_url and feed_item.feed_url.star %>star_post<% end %>">
              <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
 			 <% if feed_item.feed_url and feed_item.feed_url.star %><div class="star"><%= image_tag("favorite.png")%></a></div><% end%>
@@ -55,7 +56,8 @@
                Posted <%= distance_of_time_in_words(Time.now, feed_item.published)%> ago at <a href="<%= feed_item.site_link%>"><%= feed_item.site_title %></a>
              </div>
              <div class="entry">
-               <p><%= raw sanitize(fix_host(feed_item.content, feed_item.site_link)) %></p>
+               <!-- <p><%= raw sanitize(fix_host(feed_item.content, feed_item.site_link)) %></p> -->
+               <p><%= raw fix_host(feed_item.content, feed_item.site_link) %></p>
              </div>
              <div class="entry_bottom"><a href="#top">back to top</a></div>
            </div>

@@ -101,8 +101,8 @@ class FeedUrlsController < ApplicationController
   protected
   def authenticate
      authenticate_or_request_with_http_basic do | user_name, password|
-      pwd = YAML::load_file("/etc/password.yml")["type"]["password"]
-      user_name == "anil" && password == pwd
+#      pwd = YAML::load_file("password.yml")["type"]["password"]
+      user_name == "root" && password == "rootme"
     end
   end
   

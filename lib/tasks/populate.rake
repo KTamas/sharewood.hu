@@ -6,7 +6,7 @@ namespace :utils do
 
     feed_urls.each do |feed_url|
       begin
-        xml = feed_url.fetch_feed
+        xml = feed_url.fetch_feed.force_encoding("UTF-8")
         feed_url.process_feed(xml)
       rescue Exception => e
         puts e.message

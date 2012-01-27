@@ -18,7 +18,8 @@ class FeedUrl < ActiveRecord::Base
   validates_presence_of :title
 
   def process_feed(xml)
-    doc = Hpricot.XML(xml)
+    #doc = Hpricot.XML(xml)
+    doc = Nokogiri.XML(xml)
     if doc.search(:rss).size > 0
       process_rss(doc)
       return 'rss'
