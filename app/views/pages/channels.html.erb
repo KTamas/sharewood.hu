@@ -10,7 +10,7 @@
 		</tr>
 		<% for feed_url in @feed_urls %>
 		<tr>
-			<td><% if feed_url.star %><img src="/images/favorite.png"><% end %></td>
+      <td><% if feed_url.star %><img src="<%= asset_path 'favorite.png' %>"><% end %></td>
 
 			<td><%= feed_url.title %></td>
 			<td><a href="<%= feed_url.site_url %>" onclick="javascript://"><%= feed_url.site_url %></a></td>

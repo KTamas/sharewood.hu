@@ -24,7 +24,7 @@ img {
 #header {
 	padding-left:30px;
 	height:50px;
-	background: transparent url(/images/header_bg.png) repeat-x;
+  background: transparent url(<%= asset_path 'header_bg.png' %>) repeat-x;
 	border-bottom:#eee 1px solid;
 }
 
@@ -190,7 +190,7 @@ img {
 }
 
 #search_form #search{
-	background: transparent url(/images/search.gif) no-repeat left;
+  background: transparent url(<%= asset_path 'search.gif' %>) no-repeat left;
 	background-color: #fff;
 	no-repeat scroll 0pt 50%;
 	padding:3px 2px 3px 25px;

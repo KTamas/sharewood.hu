@@ -8,3 +8,5 @@ temp
 nbproject
 vendor/rails
 .bundle/
+.sass-cache/
+public/assets/

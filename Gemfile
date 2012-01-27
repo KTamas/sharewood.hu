@@ -22,6 +22,7 @@ gem "sqlite3-ruby", :require => "sqlite3"
 gem 'will_paginate', '3.0.pre'
 gem 'mysql2'
 gem 'nokogiri'
+gem "uglifier"
 require 'open-uri'
 require 'uri'
 require 'digest/md5'
