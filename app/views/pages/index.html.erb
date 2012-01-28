@@ -13,17 +13,15 @@
     <% end %>
   </div>
   <div id="sidebar">
-    <div id="header-right">
-      <form id="search_form" name="search" action="/search" method="get">
-        <input id="search" type="text" name="query" value="<%= params[:query] %>">
-      </form>
-      <br />
-    </div>
+    <form id="search_form" name="search" action="/search" method="get">
+      <input id="search" type="text" name="query" value="<%= params[:query] %>">
+    </form>
+    <br />
 
     <div class="channels">
-     Feeds on sharewood:<br/>
+      Feeds on sharewood:<br/>
       <% for feed_url in @feed_urls %>
-        <a href="<%= feed_url.site_url %>" onclick="javascript://"><%= feed_url.title %></a><br />
+        <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a><br />
       <% end %>
       <br/>Also sharing on tumblr:<br/>
       <a href="http://nordurljos.com">Bodzásfanta</a>

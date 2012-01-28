@@ -1,19 +1,47 @@
-body, html {margin:0 auto;}
-body { font-family: Georgia, serif; font-size: 17px; }
-div { display: block; }
-img { border: 0px; }
-a { color: black; }
-a:visited { color: black; }
-a:hover { color: black; text-decoration:underline; }
-blockquote{
+body, html {
+  margin:0 auto;
+  font-family: Georgia, serif;
+  font-size: 17px;
+}
+
+div { 
+  display: block; 
+}
+
+img { 
+  border: 0px; 
+}
+
+a { 
+  color: black; 
+}
+
+a:visited { 
+  color: black; 
+}
+
+a:hover { 
+  color: black; 
+  text-decoration:underline; 
+}
+
+blockquote {
   background:url(<%= asset_path 'blockquote.png' %>) no-repeat top left;
   margin-left:0;
   margin-right:3em;
   padding:0 0 0 2em;
   font-size: 0.95em;
 }
-.entry p { margin-top: 12px; margin-bottom: 12px;}
-.posterous_quote_citation { font-size: 13px; }
+
+.entry p { 
+  margin-top: 12px; 
+  margin-bottom: 12px;
+}
+
+.posterous_quote_citation { 
+  font-size: 13px; 
+}
+
 #sharewoodtitle h1{
   margin-top: 10px; 
   margin-bottom: 3px;
@@ -21,8 +49,16 @@ blockquote{
   text-align: center;
   font-weight: normal;
 }
-#sharewoodtitle a{ color: black; text-decoration:none; }
-#sharewoodtitle a:visited{ text-decoration:none; }
+
+#sharewoodtitle a { 
+  color: black; 
+  text-decoration:none; 
+}
+
+#sharewoodtitle a:visited { 
+  text-decoration:none; 
+}
+
 #tagline { 
   border-top:1px solid #000;
   border-bottom:1px solid #000;
@@ -37,9 +73,11 @@ blockquote{
   margin-right: auto;
   width: 925px;
 }
+
 #main {
   width: 625px;
 }
+
 #sidebar {
   width: 200px;
   float: right;
@@ -51,11 +89,11 @@ blockquote{
   border-bottom: 1px solid black;
 }
 
-.post img{
+.post img {
   margin-bottom:10px;
 }
 
-.title{
+.title {
   float:left;
   width:95%;
   font-family: Ubuntu, Helvetica, sans-serif;
@@ -63,7 +101,7 @@ blockquote{
   padding-bottom: 6px;
 }
 
-.title a{
+.title a {
   text-decoration:none;
   font-weight:bold;
 }
@@ -72,7 +110,8 @@ blockquote{
   padding-top: 3px;
   padding-bottom: 6px;
 }
-.entry_bottom{
+
+.entry_bottom {
   text-align:right;
 }
 
@@ -82,7 +121,7 @@ blockquote{
   padding:5px;
 }
 
-#search_form #search{
+#search_form #search {
   background: transparent url(<%= asset_path 'search.gif' %>) no-repeat left;
   background-color: #fff;
   no-repeat scroll 0pt 50%;
@@ -91,26 +130,9 @@ blockquote{
   font-size:0.8em;
 }
 
-pre{
-  background: black;
-  color:white;
-  overflow:auto;
-  padding: 25px 20px 25px;
-  border: 3px double;
-}
-
-.bullet_icon {
-  color: #999;
-}
-
 .pagination{
   padding-top: 5px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 0.8em;
-}
-
-.channels_title {
-  font-weight:bold;
-  margin: 2px 0px 5px 2px;
 }
