@@ -1,0 +1,66 @@
+# encoding: utf-8
+<div id="wrap">
+  <div id="sharewoodtitle">
+    <h1><a href="http://sharewood.hu/">SHAREWOOD</a></h1>
+  </div>
+  <div id="tagline">The Hungarian linkblog community. Since 2012.</div>
+  <div id="notice">
+    <% if !params[:query].blank? %>
+      Results for "<%= params[:query] %>"
+    <% end %>
+    <% if params[:query].blank? and !params[:page].blank? %>
+      Displaying page <%= params[:page] %>   
+    <% end %>
+  </div>
+  <div id="sidebar">
+    <form id="search_form" name="search" action="/search" method="get">
+      <input id="search" type="text" name="query" value="<%= params[:query] %>">
+    </form>
+    <br />
+
+    <div class="channels">
+      Feeds on sharewood:<br/>
+      <% for feed_url in @feed_urls %>
+        <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a><br />
+      <% end %>
+      <br/>Also sharing on tumblr:<br/>
+      <a href="http://nordurljos.com">Bodzásfanta</a>
+      <br /><br />
+      ---
+      <br /><br />
+      Subscribe to the <a href="http://sharewood.hu/pages/show.rss">sharewood feed</a>.<br/><br/><strong>If you want to join us, <a href="mailto:join@sharewood.hu">drop us an email</a>.</strong>
+    </div>
+  </div>
+  <div id="main">
+    <div class="pagination">
+      <%= will_paginate @feeds, :class => "digg_pagination" %>
+    </div>
+    <br />
+    <% if !@feeds.blank? %>
+      <% for feed_item in @feeds%>
+        <div><a name="<%= Digest::MD5.hexdigest(feed_item.link )%>"></a></div>
+        <div class="post">
+          <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
+          <div class="sub">
+            Shared <%= distance_of_time_in_words(Time.now, feed_item.published)%> ago by <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a>
+          </div>
+          <div class="entry">
+            <p><%= raw fix_host( Sanitize.clean(feed_item.content, :elements => %w[a abbr b blockquote br div cite code em i li ol p pre s small strike strong sub sup u ul var object iframe embed img], :attributes => { 'a' => ['href'], 'img' => ['src', 'width', 'height'], 'iframe' => ['src', 'allowfullscreen', 'frameborder', 'height', 'width'], 'embed' => ['src', 'height', 'width', 'allowscriptaccess', 'allowfullscreen', 'flashvars'] }), feed_item.site_link) %></p>
+          </div>
+        </div>
+      <% end %>
+
+    <% elsif !params[:query].blank? %>
+      <div class="post" style="text-align:center">
+        No results found.
+      </div>
+    <% elsif params[:query].blank? %>
+      There are no feeds added yet. <br />
+      <a href="feed_urls">click here</a> to add.
+    <%end%>
+  </div>
+  <div class="pagination">
+    <%= will_paginate @feeds, :class => "digg_pagination" %>
+  </div>
+  <div id="footer">The Hungarian linkblog community. Since 2012. No right reserved. Contact us at <a href="mailto:info@sharewood.hu">info@sharewood.hu</a>.</div>
+</div>
