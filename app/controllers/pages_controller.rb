@@ -21,10 +21,4 @@ class PagesController < ApplicationController
                            :order => "published DESC")
     render :action => "index"
   end
-  
-  # channels
-  def channels
-    @feed_urls = FeedUrl.find(:all, :order => :title)
-    render :layout => false
-  end
 end

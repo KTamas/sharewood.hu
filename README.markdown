@@ -21,7 +21,7 @@ Special Thanks
 
 * Pratik Naik for initial idea 
 * GitHub for providing free git hosting
-* The original planet software
+* [The original planet software](http://planetplanet.org/)
 
 Sites referred
 
