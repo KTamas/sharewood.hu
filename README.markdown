@@ -5,8 +5,9 @@ Open Source Planet Ruby on Rails is RSS/Atom aggregator.
 
 Introduction
 ------------
-Coming soon...
+Deploy it like a normal Rails 3 application. Put the following command in the crontab:
 
+    bundle exec rake rake utils:populate_feeds
 
 Contributors
 ------------
@@ -14,7 +15,6 @@ Contributors
 * [Anil Wadghule](http://github.com/anildigital) (that's me!)
 * [Kádár Tamás (KTamas)](http://github.com/ktamas)
 * You! Please contribute.
-
 
 Special Thanks
 --------------
@@ -24,6 +24,7 @@ Special Thanks
 * [The original planet software](http://planetplanet.org/)
 
 Sites referred
+--------------
 
 * http://planetrubyonrails.com
 * http://planetrubyonrails.org (Non existant now)
