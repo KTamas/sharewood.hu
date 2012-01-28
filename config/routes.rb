@@ -7,6 +7,7 @@ Planet::Application.routes.draw do # The priority is based upon order of creatio
   
   # Sample of regular route:
    match 'search' => 'pages#search'
+   match 'feed' => 'pages#show', :as => :feed
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
@@ -19,7 +20,6 @@ Planet::Application.routes.draw do # The priority is based upon order of creatio
     collection do 
       get :show 
       get :index
-      get :channels
     end
   end
   
