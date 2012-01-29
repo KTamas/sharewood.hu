@@ -7,7 +7,7 @@ Introduction
 ------------
 Deploy it like a normal Rails 3 application. Put the following command in the crontab:
 
-    bundle exec rake rake utils:populate_feeds
+    0 */1 * * * /bin/bash -l -c '/path/to/update.sh'
 
 Contributors
 ------------
