@@ -43,9 +43,9 @@
           <div class="sub">
             Shared <%= distance_of_time_in_words(Time.now, feed_item.published)%> ago by <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a> | <a href="http://twitter.com/share?url=<%= h feed_item.link %>&amp;text=<%= h URI::escape(feed_item.title) %>" target="_blank">Tweet this</a> 
           </div>
-	  <div class="entry">
-	  <%= raw fix_host( TidyFFI::Tidy.clean(Sanitize.clean(feed_item.content, :elements => %w[a abbr b blockquote br div cite code em i li ol p pre param s small strike strong sub sup u ul var object iframe embed img], :attributes => { 'a' => ['href'], 'img' => ['src', 'width', 'height', 'alt'], 'iframe' => ['src', 'allowfullscreen', 'frameborder', 'height', 'width'], 'embed' => ['src', 'height', 'width', 'allowscriptaccess', 'allowfullscreen', 'flashvars'], 'object' => ['width', 'height', 'classid', 'codebase', 'movie', 'data', 'type'], 'param' => ['name', 'value', 'valuetype', 'type'] }).force_encoding('utf-8'), :show_body_only => 1, :char_encoding => 'utf8').force_encoding('utf-8'), feed_item.site_link) %>
-	  </div>
+          <div class="entry">
+            <%= raw fix_host(feed_item.clean_content, feed_item.site_link) %>
+          </div>
         </div>
       <% end %>
 
