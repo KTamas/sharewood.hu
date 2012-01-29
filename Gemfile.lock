@@ -41,6 +41,7 @@ GEM
     i18n (0.6.0)
     journey (1.0.1)
     json (1.6.5)
+    libv8 (3.3.10.4)
     mail (2.4.1)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -82,6 +83,8 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    therubyracer (0.9.9)
+      libv8 (~> 3.3.10)
     thor (0.14.6)
     tilt (1.3.3)
     treetop (1.4.10)
@@ -99,10 +102,12 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   dynamic_form
+  execjs
   mysql2
   newrelic_rpm
   nokogiri
   rails (= 3.2.1)
   sanitize
+  therubyracer
   uglifier (>= 1.0.3)
   will_paginate
