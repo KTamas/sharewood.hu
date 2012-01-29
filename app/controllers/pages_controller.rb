@@ -10,6 +10,10 @@ class PagesController < ApplicationController
     index
   end
   
+  def opml
+    @feed_urls = FeedUrl.find(:all, :order => :title)
+  end
+
   # search
   def search
     query = params[:query]

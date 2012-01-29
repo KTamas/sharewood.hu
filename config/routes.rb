@@ -8,6 +8,7 @@ Planet::Application.routes.draw do # The priority is based upon order of creatio
   # Sample of regular route:
    match 'search' => 'pages#search'
    match 'feed' => 'pages#show', :as => :feed
+   match 'opml' => 'pages#opml', :as => :xml
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

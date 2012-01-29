@@ -1,9 +1,8 @@
 namespace :utils do
-  
+
   # Populates feeds table.
   task(:populate_feeds => :environment) do
     feed_urls = FeedUrl.find(:all)
-
     feed_urls.each do |feed_url|
       begin
         xml = feed_url.fetch_feed.force_encoding("UTF-8")
@@ -13,10 +12,10 @@ namespace :utils do
       end
     end
   end
-  
+
   # Removes duplicate feeds.
   task(:delete_duplicate_feeds => :environment) do
     FeedUrl.cleanup_feeds()
   end
-  
+
 end
