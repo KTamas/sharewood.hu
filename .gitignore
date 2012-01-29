@@ -11,3 +11,5 @@ vendor/rails
 .sass-cache/
 public/assets/
 vendor/plugins.disabled
+config/database.yml
+config/newrelic.yml
