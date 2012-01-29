@@ -13,3 +13,4 @@ public/assets/
 vendor/plugins.disabled
 config/database.yml
 config/newrelic.yml
+updatelog.txt
