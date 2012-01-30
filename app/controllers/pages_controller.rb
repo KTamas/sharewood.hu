@@ -14,6 +14,12 @@ class PagesController < ApplicationController
     index
   end
   
+  def about
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def opml
     @feed_urls = FeedUrl.find(:all, :order => :title)
     respond_to do |format|

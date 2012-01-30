@@ -10,6 +10,7 @@ Planet::Application.routes.draw do # The priority is based upon order of creatio
    match 'feed' => 'pages#show', :as => :rss
  # match 'opml', :to => redirect('/pages/opml.xml')
    match 'sharewood_opml' => 'pages#opml', :as => :xml
+   match 'about' => 'pages#about'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

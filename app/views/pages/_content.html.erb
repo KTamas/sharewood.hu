@@ -1,65 +1,61 @@
 # encoding: utf-8
-<div id="wrap">
-  <div id="sharewoodtitle">
-    <h1><a href="http://sharewood.hu/">SHAREWOOD</a></h1>
-  </div>
-  <div id="tagline">The Hungarian linkblog community. Since 2012.</div>
-  <div id="notice">
-    <% if !params[:query].blank? %>
-      Results for "<%= params[:query] %>"
-    <% end %>
-    <% if params[:query].blank? and !params[:page].blank? %>
-      Displaying page <%= params[:page] %>   
-    <% end %>
-  </div>
-  <div id="sidebar">
-    <form id="search_form" name="search" action="/search" method="get">
-      <input id="search" type="text" name="query" value="<%= params[:query] %>">
-    </form>
-    <br />
+<div id="notice">
+  <% if !params[:query].blank? %>
+    Találatok a következő keresőkifejezésre: "<%= params[:query] %>"
+  <% end %>
+  <% if params[:query].blank? and !params[:page].blank? %>
+    <%= params[:page] %>. oldal
+  <% end %>
+</div>
+<div id="sidebar">
+  <strong><%= link_to "Mi ez?", '/about' %></strong>
+  <br /><br />
+  Kereső:
+  <form id="search_form" name="search" action="/search" method="get">
+    <input id="search" type="text" name="query" value="<%= params[:query] %>">
+  </form>
+  <br />
 
-    <div class="channels">
-      Feeds on sharewood:<br/>
-      <% for feed_url in @feed_urls %>
-        <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a><br />
-      <% end %>
-      <br/>Also sharing on tumblr:<br/>
-      <a href="http://nordurljos.com">Bodzásfanta</a>
-      <br /><br />
-      ---
-      <br /><br />
-      Subscribe to the <a href="http://feeds.feedburner.com/Sharewoodhu">sharewood feed</a> or <a href="http://sharewood.hu/sharewood_opml.xml">download the opml</a>.<br/><br/><strong>If you want to join us, <a href="mailto:join@sharewood.hu">drop us an email</a>.</strong>
-    </div>
+  <div class="channels">
+    Feedek a Sharewoodon:<br/>
+    <% for feed_url in @feed_urls %>
+      <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a><br />
+    <% end %>
+    <br/>Megoszt a tumblren:<br/>
+    <a href="http://nordurljos.com">Bodzásfanta</a>
+    <br /><br />
+    ---
+    <br /><br />
+    Iratkozz fel a <a href="http://feeds.feedburner.com/Sharewoodhu">Sharewood RSS feedjére</a>, vagy <a href="http://sharewood.hu/sharewood_opml.xml">töltsd le az opml fájlt a feedekkel</a>.<br/><br/><strong>Ha csatlakozni szeretnél hozzánk, <a href="mailto:join@sharewood.hu">írj nekünk egy emailt</a>.</strong>
   </div>
-  <div id="main">
-    <div class="pagination">
-      <%= will_paginate @feeds, :class => "digg_pagination" %>
-    </div>
-    <br />
-    <% if !@feeds.blank? %>
-      <% for feed_item in @feeds%>
-        <div class="post">
-          <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
-          <div class="sub">
-            Shared <%= distance_of_time_in_words(Time.now, feed_item.published)%> ago by <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a> | <a href="http://twitter.com/share?url=<%= h feed_item.link %>&amp;text=<%= h URI::escape(feed_item.title) %>" target="_blank">Tweet this</a> 
-          </div>
-          <div class="entry">
-            <%= raw fix_host(feed_item.clean_content, feed_item.site_link) %>
-          </div>
-        </div>
-      <% end %>
-
-    <% elsif !params[:query].blank? %>
-      <div class="post" style="text-align:center">
-        No results found.
-      </div>
-    <% elsif params[:query].blank? %>
-      There are no feeds added yet. <br />
-      <a href="feed_urls">click here</a> to add.
-    <%end%>
-  </div>
+</div>
+<div id="main">
   <div class="pagination">
     <%= will_paginate @feeds, :class => "digg_pagination" %>
   </div>
-  <div id="footer">The Hungarian linkblog community. Since 2012. No right reserved. Contact us at <a href="mailto:info@sharewood.hu">info@sharewood.hu</a>.</div>
+  <br />
+  <% if !@feeds.blank? %>
+    <% for feed_item in @feeds%>
+      <div class="post">
+        <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
+        <div class="sub">
+          <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, feed_item.published)%> | <a href="http://twitter.com/share?url=<%= h feed_item.link %>&amp;text=<%= h URI::escape(feed_item.title) %>" target="_blank">Oszd meg Twitteren</a> 
+        </div>
+        <div class="entry">
+          <%= raw fix_host(feed_item.clean_content, feed_item.site_link) %>
+        </div>
+      </div>
+    <% end %>
+
+  <% elsif !params[:query].blank? %>
+    <div class="post" style="text-align:center">
+      Nincs találat.
+    </div>
+  <% elsif params[:query].blank? %>
+    Nincsenek még feedek hozzáadva. <br />
+    <a href="feed_urls">Kattints ide</a>.
+  <%end%>
+</div>
+<div class="pagination">
+  <%= will_paginate @feeds, :class => "digg_pagination" %>
 </div>
