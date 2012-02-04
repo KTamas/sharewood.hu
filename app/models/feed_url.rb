@@ -53,10 +53,12 @@ class FeedUrl < ActiveRecord::Base
         rss_feed.link = link
         rss_feed.author = (item/:author).inner_html
         rss_feed.content = (item/:description).inner_html
-        if !(item/"content:encoded").blank?
-          rss_feed.content = (item/"content:encoded").inner_html
-        else
-          rss_feed.content = (item/:description).inner_html
+        if rss.namespaces.include?("xmlns:content")
+          if item.xpath('content:encoded').length == 1
+            rss_feed.content = item.xpath('content:encoded').inner_html
+          else
+            rss_feed.content = (item/:description).inner_html
+          end
         end
 
         rss_feed.published = (item/:pubDate).inner_html
