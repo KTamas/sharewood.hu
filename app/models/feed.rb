@@ -28,7 +28,8 @@ class Feed < ActiveRecord::Base
       :attributes => {
       'a' => ['href'], 
       'img' => ['src', 'width', 'height', 'alt'], 
-      'iframe' => ['src', 'allowfullscreen', 'frameborder', 'height', 'width'], 'embed' => ['src', 'height', 'width', 'allowscriptaccess', 'allowfullscreen', 'flashvars'],
+      'iframe' => ['src', 'allowfullscreen', 'frameborder', 'height', 'width'], 
+      'embed' => ['src', 'height', 'width', 'allowscriptaccess', 'allowfullscreen', 'flashvars'],
       'object' => ['width', 'height', 'classid', 'codebase', 'movie', 'data', 'type'],
       'param' => ['name', 'value', 'valuetype', 'type'] }
     }
