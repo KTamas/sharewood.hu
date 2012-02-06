@@ -1,10 +1,10 @@
 "hu":
   views:
     pagination:
-      first: "&#8592;&#8592;"
-      last: "&#8594;&#8594;"
-      previous: "&#8592;"
-      next: "&#8594;"
+      first: "<<"
+      last: ">>"
+      previous: "<"
+      next: ">"
       truncate: "&hellip;"
   datetime:
     distance_in_words:

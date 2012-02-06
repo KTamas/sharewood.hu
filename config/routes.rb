@@ -2,60 +2,14 @@ Planet::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  # Sample of regular route:
-   match 'search' => 'pages#search'
-   match 'sharewood_opml' => 'pages#opml', :as => :xml
-   match 'about' => 'pages#about'
+  match 'search' => 'pages#search'
+  match 'sharewood_opml' => 'pages#opml', :as => :xml
+  match 'about' => 'pages#about'
+  match '/:page' => 'pages#index'
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  # compatibility
+  match '/feed.rss' => redirect('/index.rss')
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-  
-  resources :pages do
-    get '/:page', :action => :index, :on => :collection
-  #  collection do 
-  #    get :index
-  #    get :opml
-  #  end
-  end
-  
   resources :feed_urls
-
-  match 'feed' => 'pages#index', :as => :rss
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get :short
-  #       post :toggle
-  #     end
-  #
-  #     collection do
-  #       get :sold
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get :recent, :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
   root :to => "pages#index"
 end
