@@ -70,7 +70,7 @@ blockquote {
   border-top:1px solid #000;
   border-bottom:1px solid #000;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-top: 4px;
   padding-bottom: 4px;
 }
@@ -88,12 +88,15 @@ blockquote {
 #sidebar {
   width: 200px;
   float: right;
+  margin-top: 10px;
 }
 
 .post {
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid black;
+  width: 100%;
+  float: left;
 }
 
 .post img {
@@ -119,6 +122,14 @@ blockquote {
   font-size: 14px;
   padding-top: 3px;
   padding-bottom: 6px;
+  display: block;
+  float: left;
+  width: 100%;
+}
+
+.entry {
+  width: 100%;
+  float: left;
 }
 
 .entry_bottom {
@@ -126,10 +137,12 @@ blockquote {
 }
 
 #footer {
-  margin-top:30px;
+  margin-top: 0px;
   text-align: center;
   padding:5px;
   border-top: 1px solid black;
+  float: left;
+  width: 100%;
 }
 
 #search_form #search {
@@ -142,9 +155,29 @@ blockquote {
   width: 160px;
 }
 
-.pagination{
-  padding-top: 5px;
-  padding-bottom: 5px;
+.pagination {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 0.8em;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.page, .next, .last, .first, .prev {
+  padding-top: 1px;
+  padding-bottom: 0px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: 1px solid black;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 1px;
+  margin-right: 1px;
+  display: block;
+  float: left;
+  height: 16px;
+  line-height: 16px; 
+}
+
+.current {
+  font-weight: bold;
 }
