@@ -2,7 +2,7 @@ source :rubygems
 gem "rails", "3.2.1"
 gem "uglifier", ">= 1.0.3"
 gem "airbrake"
-gem "will_paginate"
+gem "kaminari"
 gem "mysql2"
 gem "nokogiri"
 gem "dynamic_form"

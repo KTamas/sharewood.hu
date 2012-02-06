@@ -29,11 +29,11 @@
 </div>
 <div id="main">
   <div class="pagination">
-    <%= will_paginate @feeds, :class => "digg_pagination" %>
+    <%= paginate @feeds %>
   </div>
   <br />
   <% if !@feeds.blank? %>
-    <% for feed_item in @feeds%>
+    <% for feed_item in @feeds %>
       <div class="post">
         <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
         <div class="sub">
@@ -55,5 +55,5 @@
   <%end%>
 </div>
 <div class="pagination">
-  <%= will_paginate @feeds, :class => "digg_pagination" %>
+  <%= paginate @feeds %>
 </div>

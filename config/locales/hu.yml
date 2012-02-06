@@ -1,8 +1,11 @@
 "hu":
-  will_paginate:
-    previous_label: "&#8592;"
-    next_label: "&#8594;"
-    page_gap: "&hellip;"
+  views:
+    pagination:
+      first: "&#8592;&#8592;"
+      last: "&#8594;&#8594;"
+      previous: "&#8592;"
+      next: "&#8594;"
+      truncate: "&hellip;"
   datetime:
     distance_in_words:
       half_a_minute: "fél perce"

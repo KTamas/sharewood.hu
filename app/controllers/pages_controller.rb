@@ -1,19 +1,13 @@
 class PagesController < ApplicationController
   def index
     @feed_urls = FeedUrl.find(:all, :order => :title)
-    @feeds = Feed.paginate(:per_page => 25, :page => params[:page], :order => "published DESC")
-    expires_in 5.minutes, :private => false, :public => true
+    @feeds = Feed.order("published DESC").page(params[:page])
     respond_to do |format|
       format.html
       format.rss { render :layout => false }
     end
   end
-  
-  # used to render rss.
-  def show
-    index
-  end
-  
+
   def about
     respond_to do |format|
       format.html
@@ -34,10 +28,7 @@ class PagesController < ApplicationController
     query = params[:query]
     query = (query && query.strip) || ""
     @feed_urls = FeedUrl.find(:all, :order => :title)
-    @feeds = Feed.paginate(:conditions => ["content like ? or title like ?", "%"+query+"%", "%"+query+"%"], 
-                           :per_page => 25, 
-                           :page => params[:page], 
-                           :order => "published DESC")
+    @feeds = Feed.where("content like '%"+query+"%' or title like '%"+query+"%'").order("published DESC").page(params[:page])
     render :action => "index"
   end
 end
