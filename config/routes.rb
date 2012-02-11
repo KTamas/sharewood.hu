@@ -1,6 +1,7 @@
 Planet::Application.routes.draw do 
   # The priority is based upon order of creation:
   # first created -> highest priority.
+  resources :feed_urls
 
   match 'search' => 'pages#search'
   match 'sharewood_opml' => 'pages#opml', :as => :xml
@@ -10,6 +11,5 @@ Planet::Application.routes.draw do
   # compatibility
   match '/feed.rss' => redirect('/index.rss')
 
-  resources :feed_urls
   root :to => "pages#index"
 end

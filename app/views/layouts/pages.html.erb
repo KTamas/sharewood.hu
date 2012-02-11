@@ -3,7 +3,8 @@
   <head>
     <title>Sharewood.hu</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= csrf_meta_tag %>
     <link rel="alternate" type="application/rss+xml" title="Sharewood.hu feed" href="http://feeds.feedburner.com/Sharewoodhu" /> 
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <% if Rails.env.production? %>
