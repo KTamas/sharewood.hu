@@ -34,7 +34,7 @@
   <% if !@feeds.blank? %>
     <% for feed_item in @feeds %>
       <div class="post">
-        <div class="title"><a href="<%= h feed_item.link %>"><%= raw (feed_item.title) %></a></div>
+        <div class="title"><a href="<%= h feed_item.link %>"><%= h feed_item.title %></a></div>
         <div class="sub">
           <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, feed_item.published)%> | <a href="http://twitter.com/share?url=<%= h feed_item.link %>&amp;text=<%= h URI::escape(feed_item.title) %>" target="_blank">Oszd meg Twitteren</a> 
         </div>
