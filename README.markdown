@@ -1,11 +1,11 @@
 Planet Ruby on Rails
-=================================
+====================
 
 Open Source Planet Ruby on Rails is RSS/Atom aggregator.
 
 Introduction
 ------------
-Deploy it like a normal Rails 3 application. Put the following command in the crontab:
+Deploy it like a normal Rails 3.2 application. Put the following command in the crontab:
 
     0 */1 * * * /bin/bash -l -c '/path/to/update.sh'
 
