@@ -11,6 +11,15 @@ namespace :utils do
         puts e.message
       end
     end
+
+    if Rails.env.production?
+      # feedburner
+      puts "Pinging feedburner..."
+      require 'xmlrpc/client'
+      fb = XMLRPC::Client.new2("http://ping.feedburner.google.com/")
+      result = fb.call('weblogUpdates.ping', "Sharewood.hu feed", "http://feeds.feedburner.com/Sharewoodhu")
+      puts result['message']
+    end
   end
 
   # Removes duplicate feeds.
