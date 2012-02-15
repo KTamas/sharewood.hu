@@ -5,7 +5,7 @@ xml.rss :version => "2.0" do
 
     xml.title "Sharewood.hu feed"
     xml.description "Magyar linkblog közösség. Alapítva 2012-ben."
-    xml.link "http://sharewood.hu/feed.rss"
+    xml.link "http://sharewood.hu/"
 
     for feed in @feeds
       xml.item do
