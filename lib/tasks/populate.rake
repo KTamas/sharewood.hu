@@ -15,10 +15,15 @@ namespace :utils do
     if Rails.env.production?
       # feedburner
       puts "Pinging feedburner..."
-      require 'xmlrpc/client'
-      fb = XMLRPC::Client.new2("http://ping.feedburner.google.com/")
-      result = fb.call('weblogUpdates.ping', "Sharewood.hu feed", "http://feeds.feedburner.com/Sharewoodhu")
-      puts result['message']
+      begin
+        require 'xmlrpc/client'
+        fb = XMLRPC::Client.new2("http://ping.feedburner.google.com/")
+        result = fb.call('weblogUpdates.ping', "Sharewood.hu feed", "http://feeds.feedburner.com/Sharewoodhu")
+        puts result['message']
+      rescue Exception => e
+        puts "Nope, that didn't work."
+        puts e.message
+      end
     end
   end
 
