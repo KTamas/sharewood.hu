@@ -29,7 +29,7 @@ namespace :utils do
       begin
         require 'net/http'
         uri = URI("http://sharewood.superfeedr.com")
-        res = Net::HTTP.post_form(url, 'hub.mode' => 'publish', 'hub.url' => 'http://sharewood.hu/index.rss')
+        res = Net::HTTP.post_form(uri, 'hub.mode' => 'publish', 'hub.url' => 'http://sharewood.hu/index.rss')
         puts res.code
       rescue Exception => e
         puts "Nope, that didn't work."
