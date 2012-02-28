@@ -57,6 +57,12 @@ module Planet
     config.assets.version = '1.0'
 
     # assets
-    
+    sf = YAML::load_file("/etc/sf.yml")
+    config.middleware.use Rack::Superfeedr, { :host => sf["host"], :login => sf["login"], :password => sf["password"], :format => "json", :async => "false" } do |superfeedr|
+      Superfeedr = superfeedr
+      Superfeedr.on_notification do |n|
+        puts n
+      end
+    end
   end
 end
