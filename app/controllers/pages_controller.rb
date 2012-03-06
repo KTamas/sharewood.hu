@@ -28,7 +28,8 @@ class PagesController < ApplicationController
     query = params[:query]
     query = (query && query.strip) || ""
     @feed_urls = FeedUrl.find(:all, :order => :title)
-    @feeds = Feed.where("content like '%"+query+"%' or title like '%"+query+"%'").order("published DESC").page(params[:page])
+    #@feeds = Feed.where("content like '%"+query+"%' or title like '%"+query+"%'").order("published DESC").page(params[:page])
+    @feeds = Feed.where("content like ? or title like ?", "%#{query}%", "%#{query}%").order("published DESC").page(params[:page])
     render :action => "index"
   end
 end

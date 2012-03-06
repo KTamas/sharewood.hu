@@ -1,5 +1,5 @@
 source :rubygems
-gem "rails", "3.2.1"
+gem "rails", "~> 3.2"
 gem "uglifier", ">= 1.0.3"
 gem "airbrake"
 gem "kaminari"
