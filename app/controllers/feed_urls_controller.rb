@@ -48,6 +48,7 @@ class FeedUrlsController < ApplicationController
     respond_to do |format|
       if @feed_url.save
         flash[:notice] = 'FeedUrl was successfully created.'
+        Planet::Application::Superfeedr.subscribe(@feed_url.feed_url)
         format.html { redirect_to(@feed_url) }
         format.xml  { render :xml => @feed_url, :status => :created, :location => @feed_url }
       else
@@ -61,9 +62,11 @@ class FeedUrlsController < ApplicationController
   # PUT /feed_urls/1.xml
   def update
     @feed_url = FeedUrl.find(params[:id])
+    Planet::Application::Superfeedr.unsubscribe(@feed_url.feed_url)
 
     respond_to do |format|
       if @feed_url.update_attributes(params[:feed_url])
+        Planet::Application::Superfeedr.subscribe(@feed_url.feed_url)
         flash[:notice] = 'FeedUrl was successfully updated.'
         format.html { redirect_to(@feed_url) }
         format.xml  { head :ok }
@@ -79,7 +82,7 @@ class FeedUrlsController < ApplicationController
   def destroy
     @feed_url = FeedUrl.find(params[:id])
     @feed_url.destroy
-
+    Planet::Application::Superfeedr.unsubscribe(@feed_url.feed_url)
     respond_to do |format|
       format.html { redirect_to(feed_urls_url) }
       format.xml  { head :ok }
