@@ -46,18 +46,14 @@ namespace :utils do
   task(:subscribe_all => :environment) do
     feed_urls = FeedUrl.find(:all)
     feed_urls.each do |feed_url|
-      Planet::Application::Superfeedr.subscribe(feed_url.feed_url) do |s|
-        p s
-      end
+      Planet::Application::Superfeedr.subscribe(feed_url.feed_url)
     end
   end
 
   task(:unsubscribe_all => :environment) do
     feed_urls = FeedUrl.find(:all)
     feed_urls.each do |feed_url|
-      Planet::Application::Superfeedr.unsubscribe(feed_url.feed_url) do |s|
-        p s
-      end
+      Planet::Application::Superfeedr.unsubscribe(feed_url.feed_url)
     end
   end
 end
