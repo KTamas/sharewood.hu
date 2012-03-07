@@ -58,9 +58,9 @@ module Planet
 
     # assets
     sf = YAML::load_file("/etc/sf.yml")
-    config.middleware.use Rack::Superfeedr, { :host => sf["host"], :login => sf["login"], :password => sf["password"], :format => "json", :async => "false" } do |superfeedr|
+    config.middleware.use Rack::Superfeedr, { :host => sf["host"], :login => sf["login"], :password => sf["password"] } do |superfeedr|
       Superfeedr = superfeedr
-      Superfeedr.on_notification do |n|
+      superfeedr.on_notification do |n|
         f = File.new("/web/sharewood.hu/_dump/#{Digest::SHA1.hexdigest(n)}", 'w')
         f.write(n)
         f.close()
