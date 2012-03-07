@@ -61,7 +61,7 @@ module Planet
     config.middleware.use Rack::Superfeedr, { :host => sf["host"], :login => sf["login"], :password => sf["password"], :format => "json", :async => "false" } do |superfeedr|
       Superfeedr = superfeedr
       Superfeedr.on_notification do |n|
-        puts n
+        File.new("/web/sharewood.hu/_dump/#{Digest::SHA1.hexdigest(n)}", 'w').write(n).close()
       end
     end
   end
