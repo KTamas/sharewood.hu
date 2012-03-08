@@ -16,7 +16,7 @@
 		<td><% if feed_url.star %><%= image_tag("favorite.png")%><%end%></td>
 		<td><%= link_to 'Show', feed_url %></td>
 		<td><%= link_to 'Edit', edit_feed_url_path(feed_url) %></td>
-		<td><%= link_to 'Destroy', feed_url, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= button_to "delete", feed_url, :method=>:delete, :class=>:destroy %></td>
 	</tr>
 	<% end %>
 </table>
