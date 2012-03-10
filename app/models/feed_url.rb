@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 2
 #
 # Table name: feed_urls
 #
-#  id         :integer(11)     not null, primary key
+#  id         :integer(4)      not null, primary key
 #  feed_url   :string(255)
 #  title      :string(255)
-#  star       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  star       :boolean(1)      default(FALSE)
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  site_url   :string(255)
 #
 
 class FeedUrl < ActiveRecord::Base
