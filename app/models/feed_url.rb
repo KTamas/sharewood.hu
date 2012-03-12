@@ -18,16 +18,18 @@ class FeedUrl < ActiveRecord::Base
   validates_presence_of :title
 
   def process_feed(xml)
-    #doc = Hpricot.XML(xml)
     doc = Nokogiri.XML(xml)
-    if doc.search(:rss).size > 0
+    if doc.search(:rss).size > 0 # vanilla RSS
       process_rss(doc)
       return 'rss'
-    elsif doc.search(:feed).size > 0
+    elsif doc.search(:last_fetch).size > 0 # superfeedr atom
       process_atom(doc)
       return 'atom'
+    elsif doc.search(:feed).size > 0 # google reader atom
+      process_atom_reader(doc)
+      return 'atom_reader'
     else
-      raise RuntimeError, 'Unknown feed type only RSS and Atom can be read'
+      raise RuntimeError, 'Unknown feed type only RSS, atom and atom_reader can be read'
     end
   end
 
@@ -64,17 +66,10 @@ class FeedUrl < ActiveRecord::Base
         rss_feed.published = (item/:pubDate).inner_html
 
         if rss_feed.published.blank?
-          # if !(rss/:channel/:lastBuildDate).inner_html.blank?
-          #            puts "rss feed published time blank. taking lastBuildDate one"
-          #            puts (rss/:channel/:lastBuildDate).inner_html
-          #            time = (rss/:channel/:lastBuildDate).inner_html
-          #            rss_feed.published = Time.parse(time).to_s(:db)
-          #          else
           puts "rss feed published time blank. calculating system one."
           # taking it 20 days back..
           rss_feed.published = (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
           time_offset += 1
-          # end
         end
 
         rss_feed.title = htmlize(rss_feed.title)
@@ -86,15 +81,53 @@ class FeedUrl < ActiveRecord::Base
 
   # Process atom feed and saves it into db
   def process_atom(atom)
-    time_offset = 1
-
     # taking out site/blog link and title.
-    site_link =  (atom/:feed).search(:link)[1]['href']
+    site_link =  (atom/:feed/:id).first.inner_html
     site_title = (atom/:feed/:title).first.inner_html
 
     puts "processing atom for #{site_link}"
 
     (atom/:entry).each do |item|
+      link = (item/:link).first.attr('href')
+
+      if (Feed.find_by_link(link)).blank?
+        atom_feed = Feed.new
+        atom_feed.feed_url = self
+        atom_feed.site_link = site_link
+        atom_feed.site_title = site_title
+        atom_feed.title = (item/:title).inner_html
+        atom_feed.link = link
+        atom_feed.author = (item/:author/:name).inner_html
+
+        atom_feed.content = (item/:content).inner_html
+        if atom_feed.content.blank?
+          atom_feed.content = (item/:summary).inner_html
+        end
+
+        atom_feed.published = (item/:published).inner_html
+        if atom_feed.published.blank?
+          atom_feed.published = (item/:updated).inner_html
+        end
+
+        atom_feed.title = htmlize(atom_feed.title)
+        atom_feed.content = htmlize(atom_feed.content, link)
+
+        atom_feed.save!
+      end
+    end
+  end
+
+  # Process atom_reader feed and saves it into db
+  def process_atom_reader(atom_reader)
+    time_offset = 1
+
+    # taking out site/blog link and title.
+    site_link =  (atom_reader/:feed).search(:link)[1]['href']
+    site_title = (atom_reader/:feed/:title).first.inner_html
+
+    puts "processing atom_reader for #{site_link}"
+
+    (atom_reader/:entry).each do |item|
       link_raw = item.%('feedburner:origLink') || item.%('link')
 
      # if !link_raw.blank?
@@ -103,37 +136,37 @@ class FeedUrl < ActiveRecord::Base
         link = (item/:link).attr('href').value
      # end
       if (Feed.find_by_link(link)).blank?
-        atom_feed = Feed.new
-        atom_feed.feed_url = self
-        atom_feed.site_link = site_link
-        atom_feed.site_title = site_title
-        atom_feed.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
-        atom_feed.link = link
-        atom_feed.author = (item/:author/:name).inner_html
+        atom_reader_feed = Feed.new
+        atom_reader_feed.feed_url = self
+        atom_reader_feed.site_link = site_link
+        atom_reader_feed.site_title = site_title
+        atom_reader_feed.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
+        atom_reader_feed.link = link
+        atom_reader_feed.author = (item/:author/:name).inner_html
         begin
-          atom_feed.content = (item/:content).children[0].text
+          atom_reader_feed.content = (item/:content).children[0].text
         rescue
-          atom_feed.content = (item/:summery).inner_html
+          atom_reader_feed.content = (item/:summary).inner_html
         end
-        atom_feed.published = (item/:published).inner_html
+        atom_reader_feed.published = (item/:published).inner_html
 
-        if atom_feed.content.blank?
-          atom_feed.content =  (item/:summary).inner_html
-        end
-
-        if atom_feed.published.blank?
-          atom_feed.published =  (item/:updated).inner_html
+        if atom_reader_feed.content.blank?
+          atom_reader_feed.content =  (item/:summary).inner_html
         end
 
-        if atom_feed.published.blank?
+        if atom_reader_feed.published.blank?
+          atom_reader_feed.published =  (item/:updated).inner_html
+        end
+
+        if atom_reader_feed.published.blank?
           # taking it 20 days back..
-          atom_feed.published =  (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
+          atom_reader_feed.published =  (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
           time_offset += 1
         end
 
-        atom_feed.title = htmlize(atom_feed.title)
-        atom_feed.content = htmlize(atom_feed.content, link)
-        atom_feed.save!
+        atom_reader_feed.title = htmlize(atom_reader_feed.title)
+        atom_reader_feed.content = htmlize(atom_reader_feed.content, link)
+        atom_reader_feed.save!
       end
     end
   end
