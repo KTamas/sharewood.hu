@@ -7,6 +7,13 @@
     <%= params[:page] %>. oldal
   <% end %>
 </div>
+<div id="users">
+  <% if signed_in? %>
+    <%= current_user.email %> <%= link_to "Sign out", signout_path, :method => "delete" %>
+  <% else %>
+    <%= link_to "Sign in", signin_path %>
+  <% end %>
+</div>
 <div id="sidebar">
   <strong><%= link_to "Mi ez?", '/about' %></strong>
   <br /><br />

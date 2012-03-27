@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  helper :all # include all helpers, all the time+
+  include SessionsHelper
+  helper :all # include all helpers, all the time
   helper_method :fix_host
 
 
