@@ -12,11 +12,25 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   has_secure_password
   before_save :create_remember_token
+  has_many :relationships, :foreign_key => "user_id", :dependent => :destroy
+  has_many :feed_urls, :through => :relationships, :source => :feed_url
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, :presence => true, :uniqueness => true, :format => { :with => VALID_EMAIL_REGEX }
   validates :password, :length => { :minimum => 6 }
   validates :password_confirmation, :presence => true
+  
+  def subscribed?(feed_url)
+    relationships.find_by_feed_url_id(feed_url.id)
+  end
+
+  def subscribe!(feed_url)
+    relationships.create!(:feed_url_id => feed_url.id)
+  end
+
+  def unsubscribe!(feed_url)
+    relationships.find_by_feed_url_id(feed_url.id).destroy
+  end
 
   private
 

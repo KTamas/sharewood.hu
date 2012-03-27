@@ -16,6 +16,7 @@ class FeedUrl < ActiveRecord::Base
   has_many :feeds, :dependent => :delete_all
   validates_presence_of :feed_url
   validates_presence_of :title
+  belongs_to :user
 
   def process_feed(xml)
     doc = Nokogiri.XML(xml)
