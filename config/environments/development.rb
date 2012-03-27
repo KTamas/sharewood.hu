@@ -33,5 +33,9 @@ Planet::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
+  require 'bcrypt'
+  silence_warnings do
+    BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
+  end
   config.assets.debug = true
 end
