@@ -33,6 +33,7 @@ GEM
       builder
     annotate (2.4.0)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     builder (3.0.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -118,6 +119,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   annotate
+  bcrypt-ruby
   dynamic_form
   execjs
   kaminari
