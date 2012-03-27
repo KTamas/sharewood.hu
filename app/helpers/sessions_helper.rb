@@ -17,6 +17,12 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
 
+  def signed_in_user
+    unless signed_in?
+      redirect_to root_path
+    end
+  end
+
   private
 
     def user_from_remember_token

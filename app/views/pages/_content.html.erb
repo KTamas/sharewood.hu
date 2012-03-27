@@ -26,7 +26,15 @@
   <div class="channels">
     Feedek a Sharewoodon:<br/>
     <% for feed_url in @feed_urls %>
-      <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a><br />
+      <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a>
+      <% if signed_in? %>
+        <% if current_user.subscribed?(feed_url) %>
+          <%= link_to "(Elrejt)", "/unsubscribe/" + feed_url.id.to_s %>
+        <% else %>
+          <%= link_to "(Mutat)", "/subscribe/" + feed_url.id.to_s %>
+        <% end %>
+      <% end %>
+      <br />
     <% end %>
     <br />
     ---

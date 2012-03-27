@@ -4,9 +4,17 @@ Planet::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   resources :feed_urls
-  resources :users
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :users do
+    member do
+      get :subscribe, :unsubscribe
+    end
+  end
 
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+
+  match '/subscribe/:id', :to => 'relationships#create'
+  match '/unsubscribe/:id', :to => 'relationships#destroy'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'

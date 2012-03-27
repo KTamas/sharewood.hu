@@ -1,7 +1,12 @@
 class PagesController < ApplicationController
   def index
     @feed_urls = FeedUrl.find(:all, :order => :title)
-    @feeds = Feed.order("published DESC").page(params[:page])
+    if signed_in?
+      active_feeds = current_user.feed_urls.select('feed_url_id').map(&:feed_url_id).join(',')
+      @feeds = Feed.where("feed_url_id IN (#{active_feeds})").order("published DESC").page(params[:page])
+    else
+      @feeds = Feed.order("published DESC").page(params[:page])
+    end
     respond_to do |format|
       format.html
       format.rss { render :layout => false }
