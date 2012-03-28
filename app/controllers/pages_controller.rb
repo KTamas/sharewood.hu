@@ -13,6 +13,13 @@ class PagesController < ApplicationController
     end
   end
 
+  def custom_rss
+    @user = User.find_by_secret_rss_key(params[:secret_rss_key])
+    active_feeds = @user.feed_urls.select('feed_url_id').map(&:feed_url_id).join(',')
+    @feeds = Feed.where("feed_url_id IN (#{active_feeds})").order("published DESC").page(params[:page])
+    render 'index.rss', :handler => [:builder], :content_type => 'application/rss+xml'
+  end
+
   def about
     respond_to do |format|
       format.html

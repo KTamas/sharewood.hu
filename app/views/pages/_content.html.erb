@@ -9,9 +9,9 @@
 </div>
 <div id="users">
   <% if signed_in? %>
-    <%= current_user.email %> <%= link_to "Sign out", signout_path, :method => "delete" %>
+    <%= current_user.email %> <%= link_to "Kijelentkezés", signout_path %> (<%= link_to "Saját RSS", "/custom_rss/#{current_user.secret_rss_key}.xml" %>)
   <% else %>
-    <%= link_to "Sign in", signin_path %>
+    <%= link_to "Bejelentkezés", signin_path %> / <%= link_to "Regisztráció", signup_path %>
   <% end %>
 </div>
 <div id="sidebar">
@@ -29,9 +29,9 @@
       <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a>
       <% if signed_in? %>
         <% if current_user.subscribed?(feed_url) %>
-          <%= link_to "(Elrejt)", "/unsubscribe/" + feed_url.id.to_s %>
+          <%= link_to "(Elrejt)", "/unsubscribe/#{feed_url.id}" %>
         <% else %>
-          <%= link_to "(Mutat)", "/subscribe/" + feed_url.id.to_s %>
+          <%= link_to "(Mutat)", "/subscribe/#{feed_url.id}" %>
         <% end %>
       <% end %>
       <br />

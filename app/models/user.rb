@@ -2,10 +2,13 @@
 #
 # Table name: users
 #
-#  id         :integer(4)      not null, primary key
-#  email      :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id              :integer(4)      not null, primary key
+#  email           :string(255)
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  secret_rss_key  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -19,6 +22,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true, :format => { :with => VALID_EMAIL_REGEX }
   validates :password, :length => { :minimum => 6 }
   validates :password_confirmation, :presence => true
+  validates :secret_rss_key, :uniqueness => true
   
   def subscribed?(feed_url)
     relationships.find_by_feed_url_id(feed_url.id)

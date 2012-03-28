@@ -6,6 +6,10 @@
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= csrf_meta_tag %>
     <link rel="alternate" type="application/rss+xml" title="Sharewood.hu feed" href="http://feeds.feedburner.com/Sharewoodhu" /> 
+    <% if signed_in? %>
+      <link rel="alternate" type="application/rss+xml" title="Sharewood.hu saját feed" href="http://sharewood.hu/custom_rss/<%= current_user.secret_rss_key %>.xml" />
+    <% end %>
+
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <% if Rails.env.production? %>
       <script type="text/javascript">

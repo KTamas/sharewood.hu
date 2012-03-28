@@ -15,6 +15,7 @@ Planet::Application.routes.draw do
 
   match '/subscribe/:id', :to => 'relationships#create'
   match '/unsubscribe/:id', :to => 'relationships#destroy'
+
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
@@ -22,6 +23,9 @@ Planet::Application.routes.draw do
   match 'search' => 'pages#search'
   match 'sharewood_opml' => 'pages#opml', :as => :xml
   match 'about' => 'pages#about'
+
+  match '/custom_rss/:secret_rss_key' => "pages#custom_rss"
+
   match '/:page' => 'pages#index'
 
   # compatibility

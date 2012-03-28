@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327162821) do
+ActiveRecord::Schema.define(:version => 20120327201356) do
 
   create_table "feed_urls", :force => true do |t|
     t.string   "feed_url"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120327162821) do
     t.datetime "updated_at",      :null => false
     t.string   "password_digest"
     t.string   "remember_token"
+    t.string   "secret_rss_key"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
