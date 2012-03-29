@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.secret_rss_key = Digest::SHA1.hexdigest("#{Time.now}#{rand(1000000)}") # random enough
     if @user.save
-      FeedUrl.all.each { |feed_url| @user.subscribe!(feed_url) }
       sign_in @user
       redirect_to root_path
     else

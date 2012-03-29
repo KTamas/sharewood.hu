@@ -24,15 +24,15 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true
   validates :secret_rss_key, :uniqueness => true
   
-  def subscribed?(feed_url)
+  def hidden?(feed_url)
     relationships.find_by_feed_url_id(feed_url.id)
   end
 
-  def subscribe!(feed_url)
+  def hide!(feed_url)
     relationships.create!(:feed_url_id => feed_url.id)
   end
 
-  def unsubscribe!(feed_url)
+  def unhide!(feed_url)
     relationships.find_by_feed_url_id(feed_url.id).destroy
   end
 

@@ -6,15 +6,15 @@ Planet::Application.routes.draw do
   resources :feed_urls
   resources :users do
     member do
-      get :subscribe, :unsubscribe
+      get :hide, :unhide
     end
   end
 
   resources :sessions, :only => [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
-  match '/subscribe/:id', :to => 'relationships#create'
-  match '/unsubscribe/:id', :to => 'relationships#destroy'
+  match '/hide/:id', :to => 'relationships#create'
+  match '/unhide/:id', :to => 'relationships#destroy'
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
