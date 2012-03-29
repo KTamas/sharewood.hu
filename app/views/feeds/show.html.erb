@@ -1,0 +1,23 @@
+<p>
+	<b>Site url:</b>
+	<%=h @feed.site_url %>
+</p>
+
+<p>
+	<b>Feed url:</b>
+	<%=h @feed.url %>
+</p>
+
+<p>
+	<b>Title:</b>
+	<%=h @feed.title %>
+</p>
+
+<p>
+	<b>Star:</b>
+	<%if  @feed.star %><%= image_tag("favorite.png")%><%end%>
+</p>
+
+
+<%= link_to 'Edit', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %>

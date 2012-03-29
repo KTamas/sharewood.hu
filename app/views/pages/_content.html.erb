@@ -25,13 +25,13 @@
 
   <div class="channels">
     Feedek a Sharewoodon:<br/>
-    <% for feed_url in @feed_urls %>
-      <a href="<%= feed_url.site_url %>"><%= feed_url.title %></a>
+    <% for feed in @feeds %>
+      <a href="<%= feed.site_url %>"><%= feed.title %></a>
       <% if signed_in? %>
-        <% if current_user.hidden?(feed_url) %>
-          <%= link_to "(Mutat)", "/unhide/#{feed_url.id}" %>
+        <% if current_user.hidden?(feed) %>
+          <%= link_to "(Mutat)", "/unhide/#{feed.id}" %>
         <% else %>
-          <%= link_to "(Elrejt)", "/hide/#{feed_url.id}" %>
+          <%= link_to "(Elrejt)", "/hide/#{feed.id}" %>
         <% end %>
       <% end %>
       <br />
@@ -51,7 +51,7 @@
       <div class="post">
         <div class="title"><a href="<%= h item.link %>"><%= h item.title %></a></div>
         <div class="sub">
-          <a href="<%= item.site_link%>"><%= item.feed_url.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, item.published)%> | <a href="http://twitter.com/share?url=<%= h item.link %>&amp;text=<%= h URI::escape(item.title) %>" target="_blank">Oszd meg Twitteren</a> 
+          <a href="<%= item.site_link%>"><%= item.feed.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, item.published)%> | <a href="http://twitter.com/share?url=<%= h item.link %>&amp;text=<%= h URI::escape(item.title) %>" target="_blank">Oszd meg Twitteren</a> 
         </div>
         <div class="entry">
           <%= raw fix_host(item.clean_content, item.site_link) %>
@@ -65,7 +65,7 @@
     </div>
   <% elsif params[:query].blank? %>
     Nincsenek még feedek hozzáadva. <br />
-    <a href="feed_urls">Kattints ide</a>.
+    <a href="feeds">Kattints ide</a>.
   <%end%>
   <div class="pagination">
     <%= paginate @items %>

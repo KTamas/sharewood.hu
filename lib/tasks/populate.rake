@@ -5,11 +5,11 @@ namespace :utils do
 
   # Populates feeds table.
   task(:populate_feeds => :environment) do
-    feed_urls = FeedUrl.find(:all)
-    feed_urls.each do |feed_url|
+    feeds = Feed.find(:all)
+    feeds.each do |feed|
       begin
-        xml = feed_url.fetch_feed.force_encoding("UTF-8")
-        feed_url.process_feed(xml)
+        xml = feed.fetch_feed.force_encoding("UTF-8")
+        feed.process_feed(xml)
       rescue Exception => e
         puts e.message
       end
@@ -19,20 +19,20 @@ namespace :utils do
 
   # Removes duplicate feeds.
   task(:delete_duplicate_feeds => :environment) do
-    FeedUrl.cleanup_feeds()
+    Feed.cleanup_feeds()
   end
 
   task(:subscribe_all => :environment) do
-    feed_urls = FeedUrl.find(:all)
-    feed_urls.each do |feed_url|
-      Planet::Application::Superfeedr.subscribe(feed_url.feed_url)
+    feeds = Feed.find(:all)
+    feeds.each do |feed|
+      Planet::Application::Superfeedr.subscribe(feed.url)
     end
   end
 
   task(:unsubscribe_all => :environment) do
-    feed_urls = FeedUrl.find(:all)
-    feed_urls.each do |feed_url|
-      Planet::Application::Superfeedr.unsubscribe(feed_url.feed_url)
+    feeds = Feed.find(:all)
+    feeds.each do |feed|
+      Planet::Application::Superfeedr.unsubscribe(feed.url)
     end
   end
 end

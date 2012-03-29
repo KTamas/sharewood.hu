@@ -3,7 +3,7 @@ Planet::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  resources :feed_urls
+  resources :feeds
   resources :users do
     member do
       get :hide, :unhide

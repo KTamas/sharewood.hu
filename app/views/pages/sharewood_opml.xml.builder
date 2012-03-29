@@ -7,8 +7,8 @@ xml.opml :version => "1.0" do
 
   xml.body do
     xml.outline :title => "Sharewood.hu feeds", :text => "Sharewood.hu feeds" do
-      for feed_url in @feed_urls do
-        xml.outline :text => feed_url.title, :title => feed_url.title, :type => "rss", :xmlUrl => feed_url.feed_url, :htmlUrl => feed_url.site_url
+      for feed in @feeds do
+        xml.outline :text => feed.title, :title => feed.title, :type => "rss", :xmlUrl => feed.url, :htmlUrl => feed.site_url
       end
     end
   end

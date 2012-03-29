@@ -1,20 +1,7 @@
-# == Schema Information
-#
-# Table name: feed_urls
-#
-#  id         :integer(4)      not null, primary key
-#  feed_url   :string(255)
-#  title      :string(255)
-#  star       :boolean(1)      default(FALSE)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  site_url   :string(255)
-#
-
-class FeedUrl < ActiveRecord::Base
+class Feed < ActiveRecord::Base
 
   has_many :items, :dependent => :delete_all
-  validates_presence_of :feed_url
+  validates_presence_of :url
   validates_presence_of :title
   belongs_to :user
 
@@ -49,7 +36,7 @@ class FeedUrl < ActiveRecord::Base
 
       if (Item.find_by_link(link)).blank?
         rss_item = Item.new
-        rss_item.feed_url = self
+        rss_item.url = self
         rss_item.site_link = site_link
         rss_item.site_title = site_title
         rss_item.title = (item/:title).inner_html
@@ -93,7 +80,7 @@ class FeedUrl < ActiveRecord::Base
 
       if (Item.find_by_link(link)).blank?
         atom_item = Item.new
-        atom_item.feed_url = self
+        atom_item.url = self
         atom_item.site_link = site_link
         atom_item.site_title = site_title
         atom_item.title = (item/:title).inner_html
@@ -138,7 +125,7 @@ class FeedUrl < ActiveRecord::Base
      # end
       if (Item.find_by_link(link)).blank?
         atom_reader_item = Item.new
-        atom_reader_item.feed_url = self
+        atom_reader_item.url = self
         atom_reader_item.site_link = site_link
         atom_reader_item.site_title = site_title
         atom_reader_item.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
@@ -176,12 +163,12 @@ class FeedUrl < ActiveRecord::Base
   def fetch_feed
     rss = ""
     begin
-      f = open(self.feed_url, 'r')
+      f = open(self.url, 'r')
       rss = f.read()
       f.close
     rescue Exception => e
       puts e.message
-      puts "FeedUrl::fetch_feed :: Error in opening feed"
+      puts "Feed::fetch_feed :: Error in opening feed"
     end
     return rss
   end
@@ -211,7 +198,7 @@ class FeedUrl < ActiveRecord::Base
   ## Removed duplicate entries
   ## Currently based on feed title. #TODO make it more correct.
   def self.cleanup_feeds
-    feed_records = FeedUrl.find_by_sql("select count(title) as qty, feeds.id as feed_id from feeds group by title having qty > 1;")
+    feed_records = Feed.find_by_sql("select count(title) as qty, feeds.id as feed_id from feeds group by title having qty > 1;")
     feed_ids = (feed_records.collect{|i| i.feed_id})
     Item.delete(feed_ids)
   end

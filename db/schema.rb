@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329103224) do
+ActiveRecord::Schema.define(:version => 20120329110418) do
 
-  create_table "feed_urls", :force => true do |t|
-    t.string   "feed_url"
+  create_table "feeds", :force => true do |t|
+    t.string   "url"
     t.string   "title"
     t.boolean  "star",       :default => false
     t.datetime "created_at",                    :null => false
@@ -24,17 +24,17 @@ ActiveRecord::Schema.define(:version => 20120329103224) do
 
   create_table "hidden_feeds", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "feed_url_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "feed_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "hidden_feeds", ["feed_url_id"], :name => "index_hidden_feeds_on_feed_url_id"
-  add_index "hidden_feeds", ["user_id", "feed_url_id"], :name => "index_hidden_feeds_on_user_id_and_feed_url_id", :unique => true
+  add_index "hidden_feeds", ["feed_id"], :name => "index_hidden_feeds_on_feed_id"
+  add_index "hidden_feeds", ["user_id", "feed_id"], :name => "index_hidden_feeds_on_user_id_and_feed_id", :unique => true
   add_index "hidden_feeds", ["user_id"], :name => "index_hidden_feeds_on_user_id"
 
   create_table "items", :force => true do |t|
-    t.integer  "feed_url_id"
+    t.integer  "feed_id"
     t.string   "title"
     t.string   "author"
     t.string   "link"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20120329103224) do
     t.string   "site_title"
     t.text     "content"
     t.datetime "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

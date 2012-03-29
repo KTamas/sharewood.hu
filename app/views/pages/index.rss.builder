@@ -9,7 +9,7 @@ xml.rss :version => "2.0" do
     xml.link :rel => "self", :href => "http://sharewood.hu/index.rss", :xmlns => "http://www.w3.org/2005/Atom"
     for item in @items
       xml.item do
-        xml.title item.title + " (" + item.feed_url.title + " osztotta meg)"
+        xml.title item.title + " (" + item.feed.title + " osztotta meg)"
         xml.description fix_host(item.clean_content, item.site_link)
         xml.pubDate item.published.to_s(:rfc822)
         xml.link item.link

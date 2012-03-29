@@ -1,22 +1,9 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer(4)      not null, primary key
-#  email           :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  password_digest :string(255)
-#  remember_token  :string(255)
-#  secret_rss_key  :string(255)
-#
-
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   has_secure_password
   before_save :create_remember_token
   has_many :hidden_feeds, :foreign_key => "user_id", :dependent => :destroy
-  has_many :feed_urls, :through => :hidden_feeds, :source => :feed_url
+  has_many :feeds, :through => :hidden_feeds, :source => :feed
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, :presence => true, :uniqueness => true, :format => { :with => VALID_EMAIL_REGEX }
@@ -24,16 +11,16 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true
   validates :secret_rss_key, :uniqueness => true
   
-  def hidden?(feed_url)
-    hidden_feeds.find_by_feed_url_id(feed_url.id)
+  def hidden?(feed)
+    hidden_feeds.find_by_feed_id(feed.id)
   end
 
-  def hide!(feed_url)
-    hidden_feeds.create!(:feed_url_id => feed_url.id)
+  def hide!(feed)
+    hidden_feeds.create!(:feed_id => feed.id)
   end
 
-  def unhide!(feed_url)
-    hidden_feeds.find_by_feed_url_id(feed_url.id).destroy
+  def unhide!(feed)
+    hidden_feeds.find_by_feed_id(feed.id).destroy
   end
 
   private
