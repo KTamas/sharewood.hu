@@ -55,7 +55,7 @@ module Planet
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '1.4'
 
     # assets
     sf = YAML::load_file("/etc/sf.yml")
