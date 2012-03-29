@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327201356) do
+ActiveRecord::Schema.define(:version => 20120329094806) do
 
   create_table "feed_urls", :force => true do |t|
     t.string   "feed_url"
@@ -35,16 +35,16 @@ ActiveRecord::Schema.define(:version => 20120327201356) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "relationships", :force => true do |t|
+  create_table "hidden_feeds", :force => true do |t|
     t.integer  "user_id"
     t.integer  "feed_url_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "relationships", ["feed_url_id"], :name => "index_relationships_on_feed_url_id"
-  add_index "relationships", ["user_id", "feed_url_id"], :name => "index_relationships_on_user_id_and_feed_url_id", :unique => true
-  add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
+  add_index "hidden_feeds", ["feed_url_id"], :name => "index_hidden_feeds_on_feed_url_id"
+  add_index "hidden_feeds", ["user_id", "feed_url_id"], :name => "index_hidden_feeds_on_user_id_and_feed_url_id", :unique => true
+  add_index "hidden_feeds", ["user_id"], :name => "index_hidden_feeds_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"

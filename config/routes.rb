@@ -11,10 +11,10 @@ Planet::Application.routes.draw do
   end
 
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :relationships, only: [:create, :destroy]
+  resources :hidden_feeds, only: [:create, :destroy]
 
-  match '/hide/:id', :to => 'relationships#create'
-  match '/unhide/:id', :to => 'relationships#destroy'
+  match '/hide/:id', :to => 'hidden_feeds#create'
+  match '/unhide/:id', :to => 'hidden_feeds#destroy'
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
