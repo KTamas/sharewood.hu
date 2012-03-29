@@ -7,16 +7,17 @@
     <%= params[:page] %>. oldal
   <% end %>
 </div>
-<div id="users">
-  <% if signed_in? %>
-    <%= current_user.email %> <%= link_to "Kijelentkezés", signout_path %> (<%= link_to "Saját RSS", "/custom_rss/#{current_user.secret_rss_key}.xml" %>)
-  <% else %>
-    <%= link_to "Bejelentkezés", signin_path %> / <%= link_to "Regisztráció", signup_path %>
-  <% end %>
-</div>
 <div id="sidebar">
   <strong><%= link_to "Mi ez?", '/about' %></strong>
   <br /><br />
+  <div id="users">
+    <% if signed_in? %>
+      <%= current_user.email %> <%= link_to "Kijelentkezés", signout_path %> (<%= link_to "Saját RSS", "/custom_rss/#{current_user.secret_rss_key}.xml" %>)
+    <% else %>
+      <%= link_to "Bejelentkezés", signin_path %> / <%= link_to "Regisztráció", signup_path %>
+    <% end %>
+  </div>
+  <br />
   Kereső:
   <form id="search_form" name="search" action="/search" method="get">
     <input id="search" type="text" name="query" value="<%= params[:query] %>">
