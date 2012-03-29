@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: feeds
+#
+#  id         :integer(4)      not null, primary key
+#  url        :string(255)
+#  title      :string(255)
+#  star       :boolean(1)      default(FALSE)
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  site_url   :string(255)
+#
+
 class Feed < ActiveRecord::Base
 
   has_many :items, :dependent => :delete_all
