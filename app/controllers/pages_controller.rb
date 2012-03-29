@@ -20,6 +20,7 @@ class PagesController < ApplicationController
   def custom_rss
     @user = User.find_by_secret_rss_key(params[:secret_rss_key])
     hidden_feeds = @user.feeds.select('feed_id').map(&:feed_id).join(',')
+    @custom = true
     unless hidden_feeds.blank?
       @items = Item.where("feed_id NOT IN (#{hidden_feeds})").order("published DESC").page(params[:page])
     else

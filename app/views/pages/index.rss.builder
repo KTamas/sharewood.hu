@@ -5,8 +5,10 @@ xml.rss :version => "2.0" do
     xml.title "Sharewood.hu feed"
     xml.description "Magyar linkblog közösség. Alapítva 2012-ben."
     xml.link "http://sharewood.hu/"
-    xml.link :rel => "hub", :href => "http://sharewood.superfeedr.com", :xmlns => "http://www.w3.org/2005/Atom"
-    xml.link :rel => "self", :href => "http://sharewood.hu/index.rss", :xmlns => "http://www.w3.org/2005/Atom"
+    unless @custom 
+      xml.link :rel => "hub", :href => "http://sharewood.superfeedr.com", :xmlns => "http://www.w3.org/2005/Atom"
+      xml.link :rel => "self", :href => "http://sharewood.hu/index.rss", :xmlns => "http://www.w3.org/2005/Atom"
+    end
     for item in @items
       xml.item do
         xml.title item.title + " (" + item.feed.title + " osztotta meg)"
