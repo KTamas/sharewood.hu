@@ -5,7 +5,6 @@
 #  id         :integer(4)      not null, primary key
 #  url        :string(255)
 #  title      :string(255)
-#  star       :boolean(1)      default(FALSE)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  site_url   :string(255)
@@ -49,7 +48,7 @@ class Feed < ActiveRecord::Base
 
       if (Item.find_by_link(link)).blank?
         rss_item = Item.new
-        rss_item.url = self
+        rss_item.feed = self
         rss_item.site_link = site_link
         rss_item.site_title = site_title
         rss_item.title = (item/:title).inner_html
@@ -93,7 +92,7 @@ class Feed < ActiveRecord::Base
 
       if (Item.find_by_link(link)).blank?
         atom_item = Item.new
-        atom_item.url = self
+        atom_item.feed = self
         atom_item.site_link = site_link
         atom_item.site_title = site_title
         atom_item.title = (item/:title).inner_html
@@ -138,7 +137,7 @@ class Feed < ActiveRecord::Base
      # end
       if (Item.find_by_link(link)).blank?
         atom_reader_item = Item.new
-        atom_reader_item.url = self
+        atom_reader_item.feed = self
         atom_reader_item.site_link = site_link
         atom_reader_item.site_title = site_title
         atom_reader_item.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text

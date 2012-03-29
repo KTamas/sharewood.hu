@@ -5,7 +5,6 @@
 		<th>Site url</th>
 		<th>Feed url</th>
 		<th>Title</th>
-		<th>Star</th>
 	</tr>
 
 	<% for feed in @feeds %>
@@ -13,7 +12,6 @@
 		<td><%=h feed.site_url %></td>
 		<td><%=h feed.url %></td>
 		<td><%=h feed.title %></td>
-		<td><% if feed.star %><%= image_tag("favorite.png")%><%end%></td>
 		<td><%= link_to 'Show', feed %></td>
 		<td><%= link_to 'Edit', edit_feed_path(feed) %></td>
     <td><%= button_to "delete", feed, :method=>:delete, :class=>:destroy %></td>

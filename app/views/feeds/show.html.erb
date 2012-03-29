@@ -13,11 +13,5 @@
 	<%=h @feed.title %>
 </p>
 
-<p>
-	<b>Star:</b>
-	<%if  @feed.star %><%= image_tag("favorite.png")%><%end%>
-</p>
-
-
 <%= link_to 'Edit', edit_feed_path(@feed) %> |
 <%= link_to 'Back', feeds_path %>
