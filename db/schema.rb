@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329094806) do
+ActiveRecord::Schema.define(:version => 20120329103224) do
 
   create_table "feed_urls", :force => true do |t|
     t.string   "feed_url"
@@ -20,19 +20,6 @@ ActiveRecord::Schema.define(:version => 20120329094806) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.string   "site_url"
-  end
-
-  create_table "feeds", :force => true do |t|
-    t.integer  "feed_url_id"
-    t.string   "title"
-    t.string   "author"
-    t.string   "link"
-    t.string   "site_link"
-    t.string   "site_title"
-    t.text     "content"
-    t.datetime "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "hidden_feeds", :force => true do |t|
@@ -45,6 +32,19 @@ ActiveRecord::Schema.define(:version => 20120329094806) do
   add_index "hidden_feeds", ["feed_url_id"], :name => "index_hidden_feeds_on_feed_url_id"
   add_index "hidden_feeds", ["user_id", "feed_url_id"], :name => "index_hidden_feeds_on_user_id_and_feed_url_id", :unique => true
   add_index "hidden_feeds", ["user_id"], :name => "index_hidden_feeds_on_user_id"
+
+  create_table "items", :force => true do |t|
+    t.integer  "feed_url_id"
+    t.string   "title"
+    t.string   "author"
+    t.string   "link"
+    t.string   "site_link"
+    t.string   "site_title"
+    t.text     "content"
+    t.datetime "published"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

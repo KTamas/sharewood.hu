@@ -13,7 +13,7 @@
 
 class FeedUrl < ActiveRecord::Base
 
-  has_many :feeds, :dependent => :delete_all
+  has_many :items, :dependent => :delete_all
   validates_presence_of :feed_url
   validates_presence_of :title
   belongs_to :user
@@ -47,35 +47,35 @@ class FeedUrl < ActiveRecord::Base
       link_raw = item.%('feedburner:origLink') || item.%('link') || (item/:link)
       link = link_raw.inner_html
 
-      if (Feed.find_by_link(link)).blank?
-        rss_feed = Feed.new
-        rss_feed.feed_url = self
-        rss_feed.site_link = site_link
-        rss_feed.site_title = site_title
-        rss_feed.title = (item/:title).inner_html
-        rss_feed.link = link
-        rss_feed.author = (item/:author).inner_html
-        rss_feed.content = (item/:description).inner_html
+      if (Item.find_by_link(link)).blank?
+        rss_item = Item.new
+        rss_item.feed_url = self
+        rss_item.site_link = site_link
+        rss_item.site_title = site_title
+        rss_item.title = (item/:title).inner_html
+        rss_item.link = link
+        rss_item.author = (item/:author).inner_html
+        rss_item.content = (item/:description).inner_html
         if rss.namespaces.include?("xmlns:content")
           if item.xpath('content:encoded').length == 1
-            rss_feed.content = item.xpath('content:encoded').inner_html
+            rss_item.content = item.xpath('content:encoded').inner_html
           else
-            rss_feed.content = (item/:description).inner_html
+            rss_item.content = (item/:description).inner_html
           end
         end
 
-        rss_feed.published = (item/:pubDate).inner_html
+        rss_item.published = (item/:pubDate).inner_html
 
-        if rss_feed.published.blank?
+        if rss_item.published.blank?
           puts "rss feed published time blank. calculating system one."
           # taking it 20 days back..
-          rss_feed.published = (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
+          rss_item.published = (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
           time_offset += 1
         end
 
-        rss_feed.title = htmlize(rss_feed.title)
-        rss_feed.content = htmlize(rss_feed.content, link)
-        rss_feed.save!
+        rss_item.title = htmlize(rss_item.title)
+        rss_item.content = htmlize(rss_item.content, link)
+        rss_item.save!
       end
     end
   end
@@ -91,29 +91,29 @@ class FeedUrl < ActiveRecord::Base
     (atom/:entry).each do |item|
       link = (item/:link).first.attr('href')
 
-      if (Feed.find_by_link(link)).blank?
-        atom_feed = Feed.new
-        atom_feed.feed_url = self
-        atom_feed.site_link = site_link
-        atom_feed.site_title = site_title
-        atom_feed.title = (item/:title).inner_html
-        atom_feed.link = link
-        atom_feed.author = (item/:author/:name).inner_html
+      if (Item.find_by_link(link)).blank?
+        atom_item = Item.new
+        atom_item.feed_url = self
+        atom_item.site_link = site_link
+        atom_item.site_title = site_title
+        atom_item.title = (item/:title).inner_html
+        atom_item.link = link
+        atom_item.author = (item/:author/:name).inner_html
 
-        atom_feed.content = (item/:content).inner_html
-        if atom_feed.content.blank?
-          atom_feed.content = (item/:summary).inner_html
+        atom_item.content = (item/:content).inner_html
+        if atom_item.content.blank?
+          atom_item.content = (item/:summary).inner_html
         end
 
-        atom_feed.published = (item/:published).inner_html
-        if atom_feed.published.blank?
-          atom_feed.published = (item/:updated).inner_html
+        atom_item.published = (item/:published).inner_html
+        if atom_item.published.blank?
+          atom_item.published = (item/:updated).inner_html
         end
 
-        atom_feed.title = htmlize(atom_feed.title)
-        atom_feed.content = htmlize(atom_feed.content, link)
+        atom_item.title = htmlize(atom_item.title)
+        atom_item.content = htmlize(atom_item.content, link)
 
-        atom_feed.save!
+        atom_item.save!
       end
     end
   end
@@ -136,38 +136,38 @@ class FeedUrl < ActiveRecord::Base
      # else
         link = (item/:link).attr('href').value
      # end
-      if (Feed.find_by_link(link)).blank?
-        atom_reader_feed = Feed.new
-        atom_reader_feed.feed_url = self
-        atom_reader_feed.site_link = site_link
-        atom_reader_feed.site_title = site_title
-        atom_reader_feed.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
-        atom_reader_feed.link = link
-        atom_reader_feed.author = (item/:author/:name).inner_html
+      if (Item.find_by_link(link)).blank?
+        atom_reader_item = Item.new
+        atom_reader_item.feed_url = self
+        atom_reader_item.site_link = site_link
+        atom_reader_item.site_title = site_title
+        atom_reader_item.title = (item/:title).children[0].text + " - " + (item/:title).children[1].text
+        atom_reader_item.link = link
+        atom_reader_item.author = (item/:author/:name).inner_html
         begin
-          atom_reader_feed.content = (item/:content).children[0].text
+          atom_reader_item.content = (item/:content).children[0].text
         rescue
-          atom_reader_feed.content = (item/:summary).inner_html
+          atom_reader_item.content = (item/:summary).inner_html
         end
-        atom_reader_feed.published = (item/:published).inner_html
+        atom_reader_item.published = (item/:published).inner_html
 
-        if atom_reader_feed.content.blank?
-          atom_reader_feed.content =  (item/:summary).inner_html
-        end
-
-        if atom_reader_feed.published.blank?
-          atom_reader_feed.published =  (item/:updated).inner_html
+        if atom_reader_item.content.blank?
+          atom_reader_item.content =  (item/:summary).inner_html
         end
 
-        if atom_reader_feed.published.blank?
+        if atom_reader_item.published.blank?
+          atom_reader_item.published =  (item/:updated).inner_html
+        end
+
+        if atom_reader_item.published.blank?
           # taking it 20 days back..
-          atom_reader_feed.published =  (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
+          atom_reader_item.published =  (Time.now - (20*60*60*24) - time_offset.hours).to_s(:db)
           time_offset += 1
         end
 
-        atom_reader_feed.title = htmlize(atom_reader_feed.title)
-        atom_reader_feed.content = htmlize(atom_reader_feed.content, link)
-        atom_reader_feed.save!
+        atom_reader_item.title = htmlize(atom_reader_item.title)
+        atom_reader_item.content = htmlize(atom_reader_item.content, link)
+        atom_reader_item.save!
       end
     end
   end
@@ -213,7 +213,7 @@ class FeedUrl < ActiveRecord::Base
   def self.cleanup_feeds
     feed_records = FeedUrl.find_by_sql("select count(title) as qty, feeds.id as feed_id from feeds group by title having qty > 1;")
     feed_ids = (feed_records.collect{|i| i.feed_id})
-    Feed.delete(feed_ids)
+    Item.delete(feed_ids)
   end
 
 end

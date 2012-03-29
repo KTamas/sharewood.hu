@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: feeds
+# Table name: items
 #
 #  id          :integer(4)      not null, primary key
 #  feed_url_id :integer(4)
@@ -15,7 +15,7 @@
 #  updated_at  :datetime        not null
 #
 
-class Feed < ActiveRecord::Base
+class Item < ActiveRecord::Base
   belongs_to :feed_url
   validates_uniqueness_of :title, :scope => [:link]
   validates_presence_of :feed_url_id

@@ -44,17 +44,17 @@
 </div>
 <div id="main">
   <div class="pagination">
-    <%= paginate @feeds %>
+    <%= paginate @items %>
   </div>
-  <% if !@feeds.blank? %>
-    <% for feed_item in @feeds %>
+  <% if !@items.blank? %>
+    <% for item in @items %>
       <div class="post">
-        <div class="title"><a href="<%= h feed_item.link %>"><%= h feed_item.title %></a></div>
+        <div class="title"><a href="<%= h item.link %>"><%= h item.title %></a></div>
         <div class="sub">
-          <a href="<%= feed_item.site_link%>"><%= feed_item.feed_url.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, feed_item.published)%> | <a href="http://twitter.com/share?url=<%= h feed_item.link %>&amp;text=<%= h URI::escape(feed_item.title) %>" target="_blank">Oszd meg Twitteren</a> 
+          <a href="<%= item.site_link%>"><%= item.feed_url.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, item.published)%> | <a href="http://twitter.com/share?url=<%= h item.link %>&amp;text=<%= h URI::escape(item.title) %>" target="_blank">Oszd meg Twitteren</a> 
         </div>
         <div class="entry">
-          <%= raw fix_host(feed_item.clean_content, feed_item.site_link) %>
+          <%= raw fix_host(item.clean_content, item.site_link) %>
         </div>
       </div>
     <% end %>
@@ -68,6 +68,6 @@
     <a href="feed_urls">Kattints ide</a>.
   <%end%>
   <div class="pagination">
-    <%= paginate @feeds %>
+    <%= paginate @items %>
   </div>
 </div>
