@@ -2,7 +2,11 @@
 xml.instruct! :xml, :version => "1.0" 
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "Sharewood.hu feed"
+    if @custom
+      xml.title "Sharewood.hu saját feed: #{current_user.email}"
+    else
+      xml.title "Sharewood.hu feed"
+    end
     xml.description "Magyar linkblog közösség. Alapítva 2012-ben."
     xml.link "http://sharewood.hu/"
     unless @custom 
