@@ -7,7 +7,7 @@ class FeedsController < ApplicationController
       format.html # index.html.erb
     end
   end
-  j
+   
   def show
     @feed = Feed.find(params[:id])
     respond_to do |format|
