@@ -1,4 +1,4 @@
-Planet::Application.routes.draw do 
+Planet::Application.routes.draw do
   get "users/new"
 
   # The priority is based upon order of creation:

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates :password, :length => { :minimum => 6 }
   validates :password_confirmation, :presence => true
   validates :secret_rss_key, :uniqueness => true
-  
+
   def hidden?(feed)
     hidden_feeds.find_by_feed_id(feed.id)
   end
