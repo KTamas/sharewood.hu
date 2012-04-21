@@ -4,24 +4,24 @@
 
 <%= form_for(@feed) do |f| %>
 
-<p>
-	<b>Site url</b><br />
-	<%= f.text_field :site_url %>
-</p>
+  <p>
+  <b>Site url</b><br />
+  <%= f.text_field :site_url %>
+  </p>
 
-<p>
-	<b>Feed url</b><br />
-	<%= f.text_field :url %>
-</p>
+  <p>
+  <b>Feed url</b><br />
+  <%= f.text_field :url %>
+  </p>
 
-<p>
-	<b>Title</b><br />
-	<%= f.text_field :title %>
-</p>
+  <p>
+  <b>Title</b><br />
+  <%= f.text_field :title %>
+  </p>
 
-<p>
-	<%= f.submit "Update" %>
-</p>
+  <p>
+  <%= f.submit "Update" %>
+  </p>
 <% end %>
 
 <%= link_to 'Show', @feed %> |

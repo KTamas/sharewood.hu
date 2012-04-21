@@ -1,5 +1,5 @@
 # encoding: utf-8
-xml.instruct! :xml, :version => "1.0" 
+xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
   xml.channel do
     if @custom
@@ -9,7 +9,7 @@ xml.rss :version => "2.0" do
     end
     xml.description "Magyar linkblog közösség. Alapítva 2012-ben."
     xml.link "http://sharewood.hu/"
-    unless @custom 
+    unless @custom
       xml.link :rel => "hub", :href => "http://sharewood.superfeedr.com", :xmlns => "http://www.w3.org/2005/Atom"
       xml.link :rel => "self", :href => "http://sharewood.hu/index.rss", :xmlns => "http://www.w3.org/2005/Atom"
     end

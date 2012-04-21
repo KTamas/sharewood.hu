@@ -54,7 +54,7 @@
       <div class="post">
         <div class="title"><a href="<%= h item.link %>"><%= h item.title %></a></div>
         <div class="sub">
-          <a href="<%= item.site_link%>"><%= item.feed.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, item.published)%> | <a href="http://twitter.com/share?url=<%= h item.link %>&amp;text=<%= h URI::escape(item.title) %>" target="_blank">Oszd meg Twitteren</a> 
+          <a href="<%= item.site_link%>"><%= item.feed.title %></a> osztotta meg <%= distance_of_time_in_words(Time.now, item.published)%> | <a href="http://twitter.com/share?url=<%= h item.link %>&amp;text=<%= h URI::escape(item.title) %>" target="_blank">Oszd meg Twitteren</a>
         </div>
         <div class="entry">
           <%= raw fix_host(item.clean_content, item.site_link) %>
