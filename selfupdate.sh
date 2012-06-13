@@ -3,4 +3,6 @@ git pull
 bundle update
 RAILS_ENV=production bundle exec rake assets:precompile
 chmod -R 777 ./tmp/
-/etc/init.d/nginx restart
+killall nginx
+sleep 10
+/etc/init.d/nginx start
