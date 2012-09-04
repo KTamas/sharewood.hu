@@ -22,17 +22,17 @@ namespace :utils do
     Feed.cleanup_feeds()
   end
 
-  task(:subscribe_all => :environment) do
-    feeds = Feed.find(:all)
-    feeds.each do |feed|
-      Planet::Application::Superfeedr.subscribe(feed.url)
-    end
-  end
+  #task(:subscribe_all => :environment) do
+    #feeds = Feed.find(:all)
+    #feeds.each do |feed|
+      #Planet::Application::Superfeedr.subscribe(feed.url)
+    #end
+  #end
 
-  task(:unsubscribe_all => :environment) do
-    feeds = Feed.find(:all)
-    feeds.each do |feed|
-      Planet::Application::Superfeedr.unsubscribe(feed.url)
-    end
-  end
+  #task(:unsubscribe_all => :environment) do
+    #feeds = Feed.find(:all)
+    #feeds.each do |feed|
+      #Planet::Application::Superfeedr.unsubscribe(feed.url)
+    #end
+  #end
 end

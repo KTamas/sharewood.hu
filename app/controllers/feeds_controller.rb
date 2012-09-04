@@ -32,7 +32,7 @@ class FeedsController < ApplicationController
     respond_to do |format|
       if @feed.save
         flash[:notice] = 'Feed was successfully created.'
-        Planet::Application::Superfeedr.subscribe(@feed.url)
+        #Planet::Application::Superfeedr.subscribe(@feed.url)
         format.html { redirect_to(@feed) }
       else
         format.html { render :action => "new" }
@@ -42,11 +42,11 @@ class FeedsController < ApplicationController
 
   def update
     @feed = Feed.find(params[:id])
-    Planet::Application::Superfeedr.unsubscribe(@feed.url)
+    #Planet::Application::Superfeedr.unsubscribe(@feed.url)
 
     respond_to do |format|
       if @feed.update_attributes(params[:feed])
-        Planet::Application::Superfeedr.subscribe(@feed.url)
+        #Planet::Application::Superfeedr.subscribe(@feed.url)
         flash[:notice] = 'Feed was successfully updated.'
         format.html { redirect_to(@feed) }
         format.xml  { head :ok }
@@ -62,7 +62,7 @@ class FeedsController < ApplicationController
   def destroy
     @feed = Feed.find(params[:id])
     @feed.destroy
-    Planet::Application::Superfeedr.unsubscribe(@feed.url)
+    #Planet::Application::Superfeedr.unsubscribe(@feed.url)
     respond_to do |format|
       format.html { redirect_to(feeds_url) }
       format.xml  { head :ok }
