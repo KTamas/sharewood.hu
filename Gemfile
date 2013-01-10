@@ -9,7 +9,7 @@ gem "dynamic_form"
 gem "newrelic_rpm"
 gem "sanitize"
 gem "execjs"
-gem "therubyracer"
+gem 'therubyracer'
 gem "tidy_ffi"
 gem "rack-superfeedr"
 gem "annotate"
