@@ -175,6 +175,7 @@ class Feed < ActiveRecord::Base
   def fetch_feed
     rss = ""
     begin
+      puts self.url
       f = open(self.url, 'r')
       rss = f.read()
       f.close
