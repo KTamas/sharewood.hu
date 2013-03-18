@@ -1,4 +1,4 @@
-source :rubygems
+source "https://rubygems.org"
 gem "rails", "~> 3.2"
 gem "uglifier", ">= 1.0.3"
 gem "airbrake"
