@@ -22,14 +22,14 @@ class Feed < ActiveRecord::Base
     if doc.search(:rss).size > 0 # vanilla RSS
       process_rss(doc)
       return 'rss'
-    elsif doc.search(:last_fetch).size > 0 # superfeedr atom
+    elsif doc.search(:feed).size > 0 # atom
       process_atom(doc)
       return 'atom'
-    elsif doc.search(:feed).size > 0 # google reader atom
-      process_atom_reader(doc)
-      return 'atom_reader'
+    #elsif doc.search(:feed).size > 0 # google reader atom
+      #process_atom_reader(doc)
+      #return 'atom_reader'
     else
-      raise RuntimeError, 'Unknown feed type only RSS, atom and atom_reader can be read'
+      raise RuntimeError, 'Unknown feed type only RSS and atom can be read'
     end
   end
 
