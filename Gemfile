@@ -13,7 +13,7 @@ gem 'therubyracer'
 gem "tidy_ffi"
 gem "rack-superfeedr"
 gem "annotate"
-gem "bcrypt-ruby"
+gem 'bcrypt-ruby', '~> 3.0.0'
 require "open-uri"
 require "uri"
 require "digest/md5"
