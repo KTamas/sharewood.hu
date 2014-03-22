@@ -1,6 +1,8 @@
 require "#{Rails.root}/app/helpers/application_helper"
 include ApplicationHelper
 
+I18n.enforce_available_locales = false
+
 namespace :utils do
 
   # Populates feeds table.
